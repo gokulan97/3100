@@ -15,6 +15,17 @@ public class AttackBall {
     private int vSpeed;       //+ve means going up, -ve means going down
     private int hSpeed;       //+ve means going right, -ve means going left
     private int totalSpeed;
+    private int prev_x;     //used for collision check
+    private int prev_y;     //used for collision check
+
+    public int getPrev_x()
+    {
+        return prev_x;
+    }
+    public int getPrev_y()
+    {
+        return prev_y;
+    }
 
     public RectF ballShape;
 
@@ -27,6 +38,8 @@ public class AttackBall {
     {
         x_centre=X;
         y_centre=Y;
+        prev_x=X;
+        prev_y=Y;
         radius=R;
         vSpeed=V;
         hSpeed=H;
@@ -51,12 +64,14 @@ public class AttackBall {
 
     public void setX(int x_new)
     {
+        prev_x=x_centre;
         x_centre=x_new;
         ballShape.set(x_centre-radius,y_centre-radius,x_centre+radius,y_centre+radius);
     }
 
     public void setY(int y_new)
     {
+        prev_y=y_centre;
         y_centre=y_new;
         ballShape.set(x_centre-radius,y_centre-radius,x_centre+radius,y_centre+radius);
 
@@ -90,6 +105,8 @@ public class AttackBall {
     public void moveBall(int wall_width, int wall_height)      // Decide a optimum time_frame for each movement
     {
         Log.d("BALL POSITION1", String.valueOf(getX()) + ":" + String.valueOf(getY()));
+        prev_x=x_centre;
+        prev_y=y_centre;
         y_centre+=(vSpeed);
         x_centre+=(hSpeed);
         ballShape.set(x_centre-radius,y_centre-radius,x_centre+radius,y_centre+radius);

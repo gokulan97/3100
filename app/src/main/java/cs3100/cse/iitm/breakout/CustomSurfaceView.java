@@ -67,7 +67,7 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
         int height = getResources().getDisplayMetrics().heightPixels;
 
         Log.e("WH", width + "" + height);
-        ball.setBall(width/2, height/2, width/50, 70, 0);
+        ball.setBall(width/2, height/2, width/50, 20, 0);
         paddle.setPaddleBox(width/3, (9*height)/10, (2*width)/3, (19*height)/20);
 
         int y = 10;
@@ -172,7 +172,7 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
                         else if(status==0)
                         {
                             //Loss, display score(mechanics.Score)
-                            stopThread();
+                           // stopThread();
                         }
                     }
                 } finally {

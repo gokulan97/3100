@@ -31,6 +31,11 @@ public class GameMechanics {
         if(ballObj.getX()<=paddleObj.paddleBox.right&&ballObj.getX()>=paddleObj.paddleBox.left)
         {
             if(ballObj.getY()+ballObj.getRadius()>=paddleObj.paddleBox.top) {
+                if(ballObj.getPrev_x()>paddleObj.paddleBox.right||ballObj.getPrev_x()<paddleObj.paddleBox.left)
+                {
+                    if(ballObj.getPrev_y()<paddleObj.paddleBox.top)
+                        return -1;
+                }
                 ballObj.setY(paddleObj.paddleBox.top-ballObj.getRadius());
                 return getRegion();
             }
