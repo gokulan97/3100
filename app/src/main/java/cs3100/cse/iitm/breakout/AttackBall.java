@@ -57,7 +57,8 @@ public class AttackBall {
 
     public void setY(int y_new)
     {
-        y_centre=y_new;        ballShape.set(x_centre-radius,y_centre-radius,x_centre+radius,y_centre+radius);
+        y_centre=y_new;
+        ballShape.set(x_centre-radius,y_centre-radius,x_centre+radius,y_centre+radius);
 
     }
 
