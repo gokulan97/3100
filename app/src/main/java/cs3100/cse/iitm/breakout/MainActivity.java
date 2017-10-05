@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         CustomSurfaceView view = (CustomSurfaceView) findViewById(R.id.customSurfaceView);
-        view.setZOrderOnTop(true);
+//        view.setZOrderOnTop(true);
 
         view.startThread();
     }

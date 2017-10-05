@@ -163,7 +163,17 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
                             mSurfaceView.onDraw(canvas);
                         }
 
-                        mSurfaceView.update();
+                        int status=mSurfaceView.update();
+                        if(status==1)
+                        {
+                            //Win
+                            stopThread();
+                        }
+                        else if(status==0)
+                        {
+                            //Loss, display score(mechanics.Score)
+                            stopThread();
+                        }
                     }
                 } finally {
                     if (canvas != null) {
