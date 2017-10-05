@@ -43,12 +43,13 @@ public class GameMechanics {
             {
                 int corner_distance=(ballObj.getX()-paddleObj.paddleBox.right)*(ballObj.getX()-paddleObj.paddleBox.right)+
                         (ballObj.getY()-paddleObj.paddleBox.top)*(ballObj.getY()-paddleObj.paddleBox.top);
-                if(corner_distance<=ballObj.getRadius()*ballObj.getRadius())
-                    return 5;
-                else if(ballObj.getY()>paddleObj.paddleBox.top)
+                if(ballObj.getY()>paddleObj.paddleBox.top)
                 {
                     return -1;
                 }
+
+                else if(corner_distance<=ballObj.getRadius()*ballObj.getRadius())
+                    return 5;
                 else
                     return 0;
             }
@@ -56,12 +57,13 @@ public class GameMechanics {
             {
                 int corner_distance=(ballObj.getX()-paddleObj.paddleBox.left)*(ballObj.getX()-paddleObj.paddleBox.left)+
                         (ballObj.getY()-paddleObj.paddleBox.top)*(ballObj.getY()-paddleObj.paddleBox.top);
-                if(corner_distance<=ballObj.getRadius()*ballObj.getRadius())
-                    return 5;
-                else if(ballObj.getY()>paddleObj.paddleBox.top)
+                if(ballObj.getY()>paddleObj.paddleBox.top)
                 {
                     return -1;
                 }
+
+                else if(corner_distance<=ballObj.getRadius()*ballObj.getRadius())
+                    return 5;
                 else
                     return 0;
             }
