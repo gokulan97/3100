@@ -58,7 +58,7 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
         getHolder().addCallback(this);
 
-        paint = new Paint(Color.BLUE);
+        paint = new Paint(Color.GREEN);
         blocks = new Block[5][9];
         ball = new AttackBall();
         paddle = new Paddle();
