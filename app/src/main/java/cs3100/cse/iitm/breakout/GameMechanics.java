@@ -33,7 +33,7 @@ public class GameMechanics {
             if(ballObj.getY()+ballObj.getRadius()>=paddleObj.paddleBox.top) {
                 if(ballObj.getPrev_x()>paddleObj.paddleBox.right||ballObj.getPrev_x()<paddleObj.paddleBox.left)
                 {
-                    if(ballObj.getPrev_y()<paddleObj.paddleBox.top)
+                    if(ballObj.getPrev_y()>paddleObj.paddleBox.top&&ballObj.getvSpeed()>0)
                         return -1;
                 }
                 ballObj.setY(paddleObj.paddleBox.top-ballObj.getRadius());

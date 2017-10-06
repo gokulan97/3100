@@ -1,11 +1,10 @@
 package cs3100.cse.iitm.breakout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -23,6 +22,11 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
     public Paddle paddle;
     public AttackBall ball;
     public GameMechanics mechanics;
+
+    public int win = -1;
+
+    public int paddleMove;
+    public int width, height;
 
     public CustomSurfaceView(Context context) {
         super(context);
@@ -58,16 +62,18 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
         getHolder().addCallback(this);
 
+        paddleMove = 0;
+
         paint = new Paint(Color.GREEN);
         blocks = new Block[5][9];
         ball = new AttackBall();
         paddle = new Paddle();
 
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels;
+        width = getResources().getDisplayMetrics().widthPixels;
+        height = getResources().getDisplayMetrics().heightPixels;
 
         Log.e("WH", width + "" + height);
-        ball.setBall(width/2, height/2, width/50, 20, 0);
+        ball.setBall(width/2, height/2, width/50, width/50, 0);
         paddle.setPaddleBox(width/3, (9*height)/10, (2*width)/3, (19*height)/20);
 
         int y = 10;
@@ -95,8 +101,9 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
     }
 
     public void stopThread() {
+
         drawThread.setRunning(false);
-        drawThread.stop();
+
     }
 
     public int update() {
@@ -104,14 +111,16 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
         {
             //add code for user win
             Log.e("WIN", "You win!!");
+            win = 1;
             return 1;
         }
         else {
-            paddle.move(0, 1440);
-            ball.moveBall(1440, 2200);
+            paddle.move(paddleMove, width);
+            ball.moveBall(width);
             boolean b = mechanics.collision_paddle_handler();
             if (!b) {
                 //add code for user lost
+                win = 0;
                 Log.e("LOSE", "You lose!");
                 return 0;
             }
@@ -153,6 +162,7 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
         @Override
         public void run() {
+            int status=-1;
             Canvas canvas = null;
             while (run) {
                 try {
@@ -163,16 +173,16 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
                             mSurfaceView.onDraw(canvas);
                         }
 
-                        int status=mSurfaceView.update();
+                        status=mSurfaceView.update();
                         if(status==1)
                         {
-                            //Win
                             stopThread();
+
                         }
                         else if(status==0)
                         {
-                            //Loss, display score(mechanics.Score)
-                           // stopThread();
+                            stopThread();
+
                         }
                     }
                 } finally {
@@ -181,6 +191,11 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
                     }
                 }
             }
+            Intent i = new Intent(mSurfaceView.getContext() , FinishActivity.class);
+            i.putExtra("status", (status==0)?"lose":"win");
+            i.putExtra("score", String.valueOf(mechanics.Score));
+            mSurfaceView.getContext().startActivity(i);
+
         }
     }
 }

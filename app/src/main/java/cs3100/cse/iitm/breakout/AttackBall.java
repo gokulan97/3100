@@ -102,7 +102,7 @@ public class AttackBall {
     }
 
     // Function to move the ball and update speeds for a time duration
-    public void moveBall(int wall_width, int wall_height)      // Decide a optimum time_frame for each movement
+    public void moveBall(int wall_width)      // Decide a optimum time_frame for each movement
     {
         Log.d("BALL POSITION1", String.valueOf(getX()) + ":" + String.valueOf(getY()));
         prev_x=x_centre;

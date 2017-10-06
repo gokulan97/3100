@@ -37,12 +37,4 @@ public class Paddle {
         }
     }
 
-    public void paddleMotion()
-    {
-        //Add gravity sensor code
-    }
-
-
-
-
 }
