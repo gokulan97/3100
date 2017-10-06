@@ -18,7 +18,7 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
     public DrawThread drawThread;
     public Block[][] blocks;
-    public Paint paint;
+    public Paint[] paints;
     public Paddle paddle;
     public AttackBall ball;
     public GameMechanics mechanics;
@@ -64,7 +64,23 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
         paddleMove = 0;
 
-        paint = new Paint(Color.GREEN);
+        paints = new Paint[7];
+
+        for(int i=0; i<7; i++)
+        {
+            paints[i] = new Paint();
+        }
+
+        paints[0].setColor(Color.MAGENTA);
+        paints[1].setColor(Color.GRAY);
+        paints[2].setColor(Color.CYAN);
+        paints[3].setColor(Color.YELLOW);
+        paints[4].setColor(Color.RED);
+
+        paints[5].setColor(Color.BLUE);
+
+        paints[6].setColor(Color.GREEN);
+
         blocks = new Block[5][9];
         ball = new AttackBall();
         paddle = new Paddle();
@@ -73,7 +89,7 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
         height = getResources().getDisplayMetrics().heightPixels;
 
         Log.e("WH", width + "" + height);
-        ball.setBall(width/2, height/2, width/50, width/50, 0);
+        ball.setBall(width/2, height/2, width/40, (int)(Math.sqrt((width/50)*(height/100))), 0);
         paddle.setPaddleBox(width/3, (9*height)/10, (2*width)/3, (19*height)/20);
 
         int y = 10;
@@ -136,12 +152,12 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
         {
             for(int j=0; j<9; j++)
             {
-                canvas.drawRect(blocks[i][j].getRect(), paint);
+                canvas.drawRect(blocks[i][j].getRect(), paints[i]);
             }
         }
 
-        canvas.drawRect(paddle.paddleBox, paint);
-        canvas.drawRoundRect(ball.ballShape, ball.getRadius(), ball.getRadius(), paint);
+        canvas.drawRect(paddle.paddleBox, paints[6]);
+        canvas.drawRoundRect(ball.ballShape, ball.getRadius(), ball.getRadius(), paints[5]);
     }
 
     class DrawThread extends Thread {

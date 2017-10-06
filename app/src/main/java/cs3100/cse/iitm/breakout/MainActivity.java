@@ -64,10 +64,10 @@ public class MainActivity extends Activity implements SensorEventListener {
         float z = event.values[0];
 
         if(z<-0.5){
-            view.paddleMove = 10;
+            view.paddleMove = (int)(Math.sqrt((view.width/50)*(view.height/100)));
         }
         else if(z>0.5){
-            view.paddleMove = -10;
+            view.paddleMove = -(int)(Math.sqrt((view.width/50)*(view.height/100)));
         }
         else{
             view.paddleMove = 0;
